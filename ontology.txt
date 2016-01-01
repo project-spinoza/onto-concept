@@ -1,0 +1,35 @@
+{
+    "matched": [
+        {
+            "title": null,
+            "term": "Technology",
+            "tags": null,
+            "description": null,
+            "frequency": 1,
+            "overAllFrequency": 1,
+            "childs": [
+                {
+                    "title": "Hartley Brody",
+                    "term": "car",
+                    "tags": "technology, Sports, car, acura, hartleybrody",
+                    "description": "This blog is about technology",
+                    "frequency": 1,
+                    "overAllFrequency": 1,
+                    "childs": null
+                },
+                {
+                    "title": "Hartley Brody",
+                    "term": "acura",
+                    "tags": "technology, Sports, car, acura, hartleybrody",
+                    "description": "This blog is about technology",
+                    "frequency": 1,
+                    "overAllFrequency": 1,
+                    "childs": null
+                }
+            ]
+        }
+    ],
+    "unmatched": [
+        "2014rlx"
+    ]
+}
