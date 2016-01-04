@@ -16,7 +16,7 @@ public class OntoConceptResultGenerator {
         
     }
     
-    public static void generatFile(Object object,String fileName){
+    public static void generatFile(String fileName, Object object){
         FileWriter fw = null;
         try {
         fw = new FileWriter(new File(fileName+".txt"));
