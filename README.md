@@ -16,7 +16,7 @@ Navigate to the onto-concept directory and run the following command
 Run the following command from the root directory
 
 `java -jar ontology/target/ontology-v1.0-jar-with-dependencies.jar tweets.txt ontologies.json` <br>
-<b>OR</b><br>
+##### OR 
 Run `run.sh` for linux and Mac<br>
 Run `run.bat` for windows <br><br>
 
