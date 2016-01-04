@@ -12,8 +12,8 @@ Navigate to the onto-concept directory and run the following command
 
 `mvn clean install`
 #### Running the application
-Run the following command from the root directory
 
+Run the following command from the root directory
 `java -jar ontology/target/ontology-v1.0-jar-with-dependencies.jar tweets.txt ontologies.json` <br>
 <b>OR</b><br>
 Run `run.sh` for linux and Mac<br>
