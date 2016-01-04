@@ -28,14 +28,15 @@ public class TagConceptMatcher {
         for (String tag : tags) {
             log.debug("Runing ConceptNet for "+tag+"...");
             ConceptNet conceptNet = DataExtractor.getCurlData(tag);
-            List<Relation> conceptRelations = getRelations(conceptNet, tag);
+            List<Relation> conceptRelations = getRelations(tag, conceptNet);
             tagConcepts.add(new TagConceptNet(tag, conceptRelations));
         }
+        log.debug("["+tagConcepts+"]");
        return tagConcepts;
     }
 
     @SuppressWarnings("unchecked")
-    public List<Relation> getRelations(ConceptNet conceptnet, String word) {
+    public List<Relation> getRelations(String word, ConceptNet conceptnet) {
         
         List<Relation> relations = new ArrayList<Relation>();
         for (Object edge : conceptnet.getEdges()) {

@@ -24,11 +24,11 @@ public class TagConceptNet {
         this.concept = concept;
     }
 
-    public List<Relation> relations() {
+    public List<Relation> getRelations() {
         return relations;
     }
 
-    public void relations(List<Relation> relations) {
+    public void setRelations(List<Relation> relations) {
         this.relations = relations;
     }
 
