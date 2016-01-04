@@ -1,8 +1,0 @@
-.settings
-*.project
-*.class
-*.classpath
-log.log
-*.gitignore
-ontology.txt
-conceptNet.txt
