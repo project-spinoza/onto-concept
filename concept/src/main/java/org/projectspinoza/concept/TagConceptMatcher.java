@@ -57,7 +57,6 @@ public class TagConceptMatcher {
                     } else if (end.contains(word)) {
                         surfaceText = new SurfaceText("end", text, weight);
                     }
-                    log.info("Adding relation of type "+rel+"...");
                     if (relations.size() == 0) {
                         relations.add(new Relation(rel, surfaceText));
                     } else {
@@ -83,6 +82,7 @@ public class TagConceptMatcher {
                 return;
             } 
         }
+        log.info("Adding relation of type ["+other.getRelType()+"]");
         relations.add(other);
     }
 }

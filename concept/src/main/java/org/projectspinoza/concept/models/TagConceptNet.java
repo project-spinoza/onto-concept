@@ -6,14 +6,14 @@ import java.util.List;
 public class TagConceptNet {
 
     private String concept;
-    private List<Relation> conceptText;
+    private List<Relation> relations;
     
     public TagConceptNet(){
     }
     
     public TagConceptNet(String concept, List<Relation> relations) {
         this.concept = concept;
-        this.conceptText = relations;
+        this.relations = relations;
     }
 
     public String getConcept() {
@@ -24,26 +24,26 @@ public class TagConceptNet {
         this.concept = concept;
     }
 
-    public List<Relation> getConceptText() {
-        return conceptText;
+    public List<Relation> relations() {
+        return relations;
     }
 
-    public void setConceptText(List<Relation> relations) {
-        this.conceptText = relations;
+    public void relations(List<Relation> relations) {
+        this.relations = relations;
     }
 
     public void addConcept(Relation relation) {
-        if (conceptText == null) {
-            conceptText = new ArrayList<Relation>();
+        if (relations == null) {
+            relations = new ArrayList<Relation>();
         }
-        conceptText.add(relation);
+        relations.add(relation);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(concept)
-        .append(conceptText);
+        .append(relations);
         return sb.toString();
     }
 
