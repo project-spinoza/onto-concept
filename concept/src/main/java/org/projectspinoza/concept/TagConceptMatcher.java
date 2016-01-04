@@ -24,24 +24,22 @@ public class TagConceptMatcher {
     }
 
     public List<TagConceptNet> getConcepts() {
-        
         List<TagConceptNet> tagConcepts = new ArrayList<TagConceptNet>();
         for (String tag : tags) {
             log.debug("Runing ConceptNet for "+tag+"...");
             ConceptNet conceptNet = DataExtractor.getCurlData(tag);
-            List<Relation> conceptRelations = fetchAttributes(conceptNet, tag);
+            List<Relation> conceptRelations = getRelations(conceptNet, tag);
             tagConcepts.add(new TagConceptNet(tag, conceptRelations));
         }
        return tagConcepts;
     }
 
     @SuppressWarnings("unchecked")
-    public List<Relation> fetchAttributes(ConceptNet conceptnet, String word) {
-
-        //
+    public List<Relation> getRelations(ConceptNet conceptnet, String word) {
+        
         List<Relation> relations = new ArrayList<Relation>();
         for (Object edge : conceptnet.getEdges()) {
-            try {
+            try{
                 Map<String, Object> attributes = (Map<String, Object>) edge;
                 String rel = (String) attributes.get("rel");
                 String start = (String) attributes.get("start");
@@ -53,17 +51,17 @@ public class TagConceptMatcher {
                     rel = rel.replace("/r/", "");
                     start = start.replace("/c/en/", "");
                     end = end.replace("/c/en/", "");
-                    SurfaceText sentence = null;
+                    SurfaceText surfaceText = null;
                     if (start.contains(word)) {
-                        sentence = new SurfaceText("start", text, weight);
+                        surfaceText = new SurfaceText("start", text, weight);
                     } else if (end.contains(word)) {
-                        sentence = new SurfaceText("end", text, weight);
+                        surfaceText = new SurfaceText("end", text, weight);
                     }
                     log.info("Adding relation of type "+rel+"...");
                     if (relations.size() == 0) {
-                        relations.add(new Relation(rel, sentence));
+                        relations.add(new Relation(rel, surfaceText));
                     } else {
-                        addToRelationList(relations,new Relation(rel, sentence));
+                        addToRelations(relations,new Relation(rel, surfaceText));
                     }
                 }
             } catch (Exception ex) {
@@ -73,7 +71,7 @@ public class TagConceptMatcher {
         return relations;
     }
 
-    public void addToRelationList(List<Relation> relations, Relation other) {
+    public void addToRelations(List<Relation> relations, Relation other) {
        
         for (int i = 0; i < relations.size(); i++) {
             if (relations.get(i).getRelType().equals(other.getRelType())) {
