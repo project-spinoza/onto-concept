@@ -10,7 +10,7 @@ extended version of ontology
 
 Navigate to the onto-concept directory and run the following command
 
-`mvn clean package`
+`mvn clean install`
 #### Running the application
 Run the following command from the root directory
 
