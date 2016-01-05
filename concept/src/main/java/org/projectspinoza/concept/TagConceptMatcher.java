@@ -1,7 +1,6 @@
 package org.projectspinoza.concept;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,13 +16,11 @@ import org.projectspinoza.concept.utils.DataExtractor;
 public class TagConceptMatcher {
     
     private static Logger log = LogManager.getRootLogger();
-    private Set<String> tags = new HashSet<String>();
 
-    public TagConceptMatcher(Set<String> tags) {
-        this.tags = tags;
+    public TagConceptMatcher() {
     }
 
-    public List<TagConceptNet> getConcepts() {
+    public List<TagConceptNet> getConcepts(Set<String> tags) {
         List<TagConceptNet> tagConcepts = new ArrayList<TagConceptNet>();
         for (String tag : tags) {
             log.debug("Runing ConceptNet for "+tag+"...");
@@ -31,7 +28,6 @@ public class TagConceptMatcher {
             List<Relation> conceptRelations = getRelations(tag, conceptNet);
             tagConcepts.add(new TagConceptNet(tag, conceptRelations));
         }
-        log.debug("["+tagConcepts+"]");
        return tagConcepts;
     }
 
