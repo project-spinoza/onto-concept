@@ -26,7 +26,7 @@ public class Main {
         tweetTags = termOntologyMatcher.getConceptTweetTags();
         log.info("Done with Ontology!");
         log.info("Initializing conceptNet...");
-        List<TagConceptNet> concepts = new TagConceptMatcher(tweetTags).getConcepts();
+        List<TagConceptNet> concepts = new TagConceptMatcher().getConcepts(tweetTags);
         OntoConceptResultGenerator.generatFile("conceptNet", concepts);
         log.info("Done with conceptNet!");
     }
