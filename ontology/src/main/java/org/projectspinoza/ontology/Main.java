@@ -2,6 +2,7 @@ package org.projectspinoza.ontology;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +22,7 @@ public class Main {
         }
         log.info("Initializing ontologies!");
         termOntologyMatcher = new TermOntologyMatcher(args[0], args[1]);
-        Object onotolgy = termOntologyMatcher.getOntology();
+        Map<String,Object> onotolgy = termOntologyMatcher.getOntology();
         OntoConceptResultGenerator.generatFile("ontology", onotolgy);
         tweetTags = termOntologyMatcher.getConceptTweetTags();
         log.info("Done with Ontology!");

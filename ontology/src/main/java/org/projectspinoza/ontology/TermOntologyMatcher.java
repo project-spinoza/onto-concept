@@ -52,7 +52,7 @@ public class TermOntologyMatcher {
     }
 
     @SuppressWarnings("unchecked")
-    public Object getOntology() {
+    public Map<String,Object> getOntology() {
         Map<String, Object> resultTerms = matchTerms(tweetsPath, ontologiesPath);
         List<Term> earlyMatchedTerms = (List<Term>) resultTerms.get("matched");
         List<String> unMatchedTerms = (List<String>) resultTerms.get("unMatched");
@@ -146,7 +146,7 @@ public class TermOntologyMatcher {
         return matchedTerms;
     }
 
-    public Object printMatchedTerms(List<Term> matchTerms,
+    public Map<String,Object> printMatchedTerms(List<Term> matchTerms,
             List<String> unMatchTerms) {
 
         int matchedCount = matchTerms.size();

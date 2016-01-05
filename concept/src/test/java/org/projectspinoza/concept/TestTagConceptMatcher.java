@@ -98,8 +98,7 @@ public class TestTagConceptMatcher {
         edges.add(edgeObject1);
         Mockito.when(conceptNet.getEdges()).thenReturn(edges);
         TagConceptMatcher conceptMatcher = new TagConceptMatcher();
-        List<Relation> result1 = conceptMatcher.getRelations("coffee",
-                conceptNet);
+        List<Relation> result1 = conceptMatcher.getRelations("coffee", conceptNet);
 
         assertEquals(expected.get(1).getRelType(), result1.get(0).getRelType());
         assertEquals(expected.get(1).getSurfaceTextStart(), result1.get(0)
