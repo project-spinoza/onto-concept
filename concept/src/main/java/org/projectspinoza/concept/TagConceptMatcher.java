@@ -79,7 +79,7 @@ public class TagConceptMatcher {
                 return;
             } 
         }
-        log.info("Adding relation of type ["+other.getRelType()+"]");
+        log.debug("Adding relation of type ["+other.getRelType()+"]");
         relations.add(other);
     }
 }
