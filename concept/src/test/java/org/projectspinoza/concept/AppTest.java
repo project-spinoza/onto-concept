@@ -31,7 +31,7 @@ import org.projectspinoza.concept.utils.DataExtractor;
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ DataExtractor.class })
-public class TestTagConceptMatcher {
+public class AppTest {
     public Set<String> tags = new HashSet<String>();
     List<Relation> expected = new ArrayList<Relation>();
     Map<String, Object> edge = new HashMap<String, Object>();

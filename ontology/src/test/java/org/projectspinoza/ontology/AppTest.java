@@ -20,7 +20,7 @@ import org.projectspinoza.ontology.util.Term;
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ DataLoader.class })
-public class TestTermOntologyMatcher {
+public class AppTest {
 	Term term;
 	TermOntologyMatcher tm = new TermOntologyMatcher("tweets.txt",
 			"ontologies.json");
