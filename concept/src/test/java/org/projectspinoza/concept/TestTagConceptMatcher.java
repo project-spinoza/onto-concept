@@ -5,8 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -23,19 +25,21 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.projectspinoza.concept.models.ConceptNet;
 import org.projectspinoza.concept.models.Relation;
 import org.projectspinoza.concept.models.SurfaceText;
+import org.projectspinoza.concept.models.TagConceptNet;
 import org.projectspinoza.concept.utils.DataExtractor;
 
 @PowerMockIgnore("javax.management.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ DataExtractor.class })
 public class TestTagConceptMatcher {
+    public Set<String> tags = new HashSet<String>();
     List<Relation> expected = new ArrayList<Relation>();
     Map<String, Object> edge = new HashMap<String, Object>();
     ObjectMapper mapper = new ObjectMapper();
     SurfaceText surfaceText, surfaceText1;
-    Relation relation, relation1;
     Object edgeObject, edgeObject1;
     String jsonStr, jsonStr1;
+    Relation relation;
 
     @Mock
     ConceptNet conceptNet;
@@ -66,21 +70,22 @@ public class TestTagConceptMatcher {
                 + "\"surfaceText\":\"Kindsof[[coffee]]:[[cappuccino]]\",\"uri\":\"/a/[/r/IsA/,/c/en/cappuccino/,"
                 + "/c/en/coffee/]\",\"weight\":2.321928094887362}";
 
+        tags.add("coffee");
         edgeObject = new ObjectMapper().readValue(jsonStr, Object.class);
         edgeObject1 = new ObjectMapper().readValue(jsonStr1, Object.class);
-
         surfaceText = new SurfaceText("start", "YouarelikelytofindaBMWinGermany.", 1.80735);
-        surfaceText1 = new SurfaceText("end", "Kindsofcoffee:cappuccino", 2.32192);
-        relation = new Relation("AtLocation", surfaceText);
-        relation1 = new Relation("IsA", surfaceText1);
-        expected.add(relation);
-        expected.add(relation1);
+        surfaceText1 = new SurfaceText("end", "Kindsofcoffee:cappuccino", 2.32192); 
     }
 
     @Test
     public void testCase_1() {
+        List<Relation> expected = new ArrayList<Relation>();
+        relation = new Relation("AtLocation", surfaceText);
+        expected.add(relation);
+        
         List<Object> edges = new ArrayList<Object>();
         edges.add(edgeObject);
+        
         Mockito.when(conceptNet.getEdges()).thenReturn(edges);
         TagConceptMatcher conceptMatcher = new TagConceptMatcher();
         List<Relation> result = conceptMatcher.getRelations("bmw", conceptNet);
@@ -94,16 +99,44 @@ public class TestTagConceptMatcher {
 
     @Test
     public void testCase_2() {
+        List<Relation> expected = new ArrayList<Relation>();
+        relation = new Relation("IsA", surfaceText1);
+        expected.add(relation);
+        
         List<Object> edges = new ArrayList<Object>();
         edges.add(edgeObject1);
+        
         Mockito.when(conceptNet.getEdges()).thenReturn(edges);
         TagConceptMatcher conceptMatcher = new TagConceptMatcher();
-        List<Relation> result1 = conceptMatcher.getRelations("coffee", conceptNet);
+        List<Relation> result = conceptMatcher.getRelations("coffee", conceptNet);
 
-        assertEquals(expected.get(1).getRelType(), result1.get(0).getRelType());
-        assertEquals(expected.get(1).getSurfaceTextStart(), result1.get(0)
+        assertEquals(expected.get(0).getRelType(), result.get(0).getRelType());
+        assertEquals(expected.get(0).getSurfaceTextStart(), result.get(0)
                 .getSurfaceTextStart());
-        assertEquals(expected.get(1).getSurfaceTextEnd().getSurfaceText(),
-                result1.get(0).getSurfaceTextEnd().getSurfaceText());
+        assertEquals(expected.get(0).getSurfaceTextEnd().getSurfaceText(),
+                result.get(0).getSurfaceTextEnd().getSurfaceText());
+    }
+    
+    @Test
+    public void testCase_3(){
+        List<Relation> pre_expected = new ArrayList<Relation>();
+        relation = new Relation("IsA", surfaceText1);
+        pre_expected.add(relation);
+        
+        List<TagConceptNet> expected = new ArrayList<TagConceptNet>();
+        expected.add(new TagConceptNet("coffee", pre_expected));
+        List<Object> edges = new ArrayList<Object>();
+        edges.add(edgeObject1);
+        
+        TagConceptMatcher conceptMatcher = new TagConceptMatcher();
+        Mockito.when(DataExtractor.getCurlData("coffee")).thenReturn(conceptNet);
+        Mockito.when(conceptNet.getEdges()).thenReturn(edges);
+        List<TagConceptNet> result  = conceptMatcher.getConcepts(tags);
+        
+        assertEquals(expected.get(0).getConcept(), result.get(0).getConcept());
+        assertEquals(expected.get(0).getRelations().get(0).getRelType(),
+                result.get(0).getRelations().get(0).getRelType());
+        assertEquals(expected.get(0).getRelations().get(0).getSurfaceTextEnd().getSurfaceText(),
+                result.get(0).getRelations().get(0).getSurfaceTextEnd().getSurfaceText());
     }
 }
