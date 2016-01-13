@@ -6,4 +6,4 @@
 #version        :1.0    
 #usage          :bash run.sh
 #==============================================================================
-java -Xmx128m -jar ./ontology/target/ontology-v1.0-jar-with-dependencies.jar testtweets.txt testontology.json %*
+java -Xmx128m -jar ./ontology/target/ontology-v1.0-jar-with-dependencies.jar tweets.txt ontology.json

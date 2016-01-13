@@ -7,4 +7,4 @@
 :usage        :run.bat
 :==============================================================================
 
-java -Xmx128m -jar ./ontology/target/ontology-v1.0-jar-with-dependencies.jar tweets.txt ontology.json %*
+java -Xmx128m -jar ./ontology/target/ontology-v1.0-jar-with-dependencies.jar tweets.txt ontology.json
