@@ -23,12 +23,12 @@ public class Main {
         log.info("Initializing ontologies!");
         termOntologyMatcher = new TermOntologyMatcher(args[0], args[1]);
         Map<String,Object> onotolgy = termOntologyMatcher.getOntology();
-        OntoConceptResultGenerator.generatFile("ontology", onotolgy);
+        OntoConceptResultGenerator.generatFile("ontology_result", onotolgy);
         tweetTags = termOntologyMatcher.getConceptTweetTags();
         log.info("Done with Ontology!");
         log.info("Initializing conceptNet...");
         List<TagConceptNet> concepts = new TagConceptMatcher().getConcepts(tweetTags);
-        OntoConceptResultGenerator.generatFile("conceptNet", concepts);
+        OntoConceptResultGenerator.generatFile("conceptNet_result", concepts);
         log.info("Done with conceptNet!");
     }
 }
