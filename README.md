@@ -24,4 +24,4 @@ Run `run.bat` for windows <br><br>
 <li>You can replace `tweets.txt` with the file containing one tweet per line</li>
 
 #### Result
-The final result will be stored in two files. `ontology.txt` and `concept.txt` files, at root directory of project.
+The final result will be stored in two files. `ontology_result.txt` and `concept_result.txt` files, at root directory of project.
