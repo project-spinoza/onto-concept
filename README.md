@@ -1,6 +1,25 @@
 # onto-concept
 extended version of ontology
 
+
+# onto-graph
+onotlogy visualization
+<br>
+![Bubble screenshot](images/bubble.jpg)
+<br>
+<br>
+<br>
+<hr>
+<br>
+![Pie screenshot](images/pie.jpg)
+<br>
+<hr>
+<br>
+<br>
+<br>
+![Tree screenshot](images/tree.JPG)
+
+
 ## Usage
 
 #### Download zip or Clone it using the following command
