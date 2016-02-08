@@ -7,15 +7,11 @@ onotlogy visualization
 <br>
 ![Bubble screenshot](images/bubble.jpg)
 <br>
-<br>
-<br>
 <hr>
 <br>
 ![Pie screenshot](images/pie.jpg)
 <br>
 <hr>
-<br>
-<br>
 <br>
 ![Tree screenshot](images/tree.JPG)
 
