@@ -52,7 +52,9 @@ public class TabbedApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(TabbedApp.class.getResource("stylesheet/style.css").toExternalForm());
+       
+        //scene.getStylesheets().add(getClass().getClassLoader().getResource("stylesheet/style.css").toExternalForm());
+        //.scene.getStylesheets().add(TabbedApp.class.getResource("stylesheet/style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
