@@ -25,20 +25,20 @@ public class BubbleGraph {
 
 		final NumberAxis xAxis = new NumberAxis(0, 50, 2);
 		final NumberAxis yAxis = new NumberAxis(0, 50, 2);
-		final BubbleChart<Number, Number> blc = new BubbleChart<Number, Number>(
-				xAxis, yAxis);
+		final BubbleChart<Number, Number> bubbleChart = new BubbleChart<Number, Number>(xAxis, yAxis);
 		yAxis.setLabel("Indivisual Frequency");
 		xAxis.setLabel("Overall Frequency ");
-		blc.setTitle("Onto-concept");
+		bubbleChart.setTitle("Onto-concept");
+		
 
 		for (String key : data_map.keySet()) {
 			XYChart.Series tag = new XYChart.Series();
 			tag.setName(key);
 			int[] frequences = (int[]) data_map.get(key);
 			tag.getData().add(new XYChart.Data(frequences[0], frequences[1]));
-			blc.getData().addAll(tag);
+			
+			bubbleChart.getData().add(tag);
 		}
-	
-		return blc;
+		return bubbleChart;
 	}
 }

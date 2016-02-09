@@ -35,7 +35,7 @@ public class Main {
         TabbedApp.launch(TabbedApp.class); 
         
         // starting Concept processing...
-//        log.info("Initializing conceptNet...");
+//        log.info("Initialising conceptNet...");
 //        List<TagConceptNet> concepts = new TagConceptMatcher().getConcepts(tweetTags,null);
 //        OntoConceptResultGenerator.generatFile("conceptNet_result", concepts);
 //        log.info("Done with conceptNet!");   

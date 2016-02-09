@@ -24,16 +24,17 @@ public class TabbedApp extends Application {
         BubbleChart<Number, Number> bubbleChart = new BubbleGraph().start();
         Group pieChart = new PieGraph().start();
         SwingNode treeGraph = new TreeGraph().start();
-        /** tab for bubble graph **/
-        final Tab bubble = new Tab("Bubble Chart");
-        bubble.setId("1");
-        bubble.setContent(bubbleChart);
-        /** ends here  **/
         
         /** tab for pie graph **/
         final Tab pie = new Tab("Pie Chart");
-        pie.setId("2");
+        pie.setId("1");
         pie.setContent(pieChart);
+        /** ends here  **/
+        
+        /** tab for bubble graph **/
+        final Tab bubble = new Tab("Bubble Chart");
+        bubble.setId("2");
+        bubble.setContent(bubbleChart);
         /** ends here  **/
         
         /**	tab for tree graph **/
@@ -42,7 +43,7 @@ public class TabbedApp extends Application {
         tree.setContent(treeGraph);
         /** ends here**/
         
-        tabPane.getTabs().addAll(bubble,pie,tree);
+        tabPane.getTabs().addAll( pie,bubble, tree);
         borderPane.setCenter(tabPane);
         root.getChildren().addAll(borderPane);
         
@@ -50,11 +51,9 @@ public class TabbedApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-    	//primaryStage.setMinHeight(650);
-    	//primaryStage.setMinWidth(1000);
-        //Scene scene = new Scene(root);
-        
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(TabbedApp.class.getResource("stylesheet/style.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -65,8 +64,5 @@ public class TabbedApp extends Application {
                 return;
             }
         }
-    }
-    public static void main(String[] args){
-    	launch(args);
     }
 }

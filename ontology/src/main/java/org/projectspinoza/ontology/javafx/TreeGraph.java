@@ -71,16 +71,13 @@ public class TreeGraph {
 
 		layout = new TreeLayout<JNode, JEdge>(graph);
 	    
-		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(
-				1500, 700));
+		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(1000, 650));
 		vv.setBackground(Color.white);
 		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-		vv.getRenderContext().setVertexShapeTransformer(
-				new ClusterVertexShapeFunction());
+		vv.getRenderContext().setVertexShapeTransformer(new ClusterVertexShapeFunction());
 		vv.setVertexToolTipTransformer(new ToStringLabeller());
-		vv.getRenderContext().setArrowFillPaintTransformer(
-				new ConstantTransformer(Color.lightGray));	
+		vv.getRenderContext().setArrowFillPaintTransformer(new ConstantTransformer(Color.lightGray));	
 		
 		panel = new GraphZoomScrollPane(vv);
 
