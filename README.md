@@ -5,11 +5,11 @@ extended version of ontology
 # onto-graph
 onotlogy visualization
 <br>
-![Bubble screenshot](images/bubble.jpg)
+![Bubble screenshot](images/bubble.JPG)
 <br>
 <hr>
 <br>
-![Pie screenshot](images/pie.jpg)
+![Pie screenshot](images/pie.JPG)
 <br>
 <hr>
 <br>
