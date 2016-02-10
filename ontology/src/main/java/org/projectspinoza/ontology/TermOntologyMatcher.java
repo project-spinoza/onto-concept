@@ -192,7 +192,7 @@ public class TermOntologyMatcher {
          return String.format("%.2f",percentage);
     }
     
-    /// Extra Fuction for creating map to be visualize
+    /// Function for creating map to be visualize
     
 	public Map<String, Object> visualizeMap(List<Term> terms) {
 		Map<String, Object> tags = new HashMap<String, Object>();
