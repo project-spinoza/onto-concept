@@ -5,7 +5,7 @@ extended version of ontology
 # onto-graph
 onotlogy visualization
 <br>
-![Pie screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/pie.JPG)
+![Pie screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/pie.jpg)
 <br>
 <hr>
 <br>
