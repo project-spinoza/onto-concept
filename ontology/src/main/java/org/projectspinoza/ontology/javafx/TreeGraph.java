@@ -1,14 +1,5 @@
 package org.projectspinoza.ontology.javafx;
 
-/*
- * Copyright (c) 2003, the JUNG Project and the Regents of the University of
- * California All rights reserved.
- * 
- * This software is open-source under the BSD license; see either "license.txt"
- * or http://jung.sourceforge.net/license.txt for a description.
- * 
- */
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
@@ -59,8 +50,6 @@ public class TreeGraph {
 	VisualizationViewer<JNode, JEdge> vv;
 	VisualizationServer.Paintable rings;
 	TreeLayout<JNode, JEdge> layout;
-//	TreeCollapser collapser;
-//	RadialTreeLayout<JNode, JEdge> radialLayout;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public TreeGraph() {
@@ -108,7 +97,6 @@ public class TreeGraph {
 					return factory.getRegularPolygon(v, sides);
 				} else {
 					return factory.getRegularStar(v, size);
-				//	return factory.getRoundRectangle(v);
 				}
 			}
 			return super.transform(v);

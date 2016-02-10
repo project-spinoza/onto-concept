@@ -8,12 +8,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 public class BubbleGraph {
-	
-	//
-//	Map<String, Object> map = new HashMap<String, Object>();
-	//
-	private static Map<String, Object> data_map;
 
+	private static Map<String, Object> data_map;
+	
 	public BubbleGraph() {
 	}
 
@@ -31,7 +28,6 @@ public class BubbleGraph {
 		xAxis.setLabel("Overall Frequency ");
 		bubbleChart.setTitle("Onto-concept");
 		
-
 		for (String key : data_map.keySet()) {
 			XYChart.Series tag = new XYChart.Series();
 			tag.setName(key);
@@ -40,11 +36,8 @@ public class BubbleGraph {
 			bubbleChart.getData().add(tag);
 		}
 		bubbleChart.legendVisibleProperty().set(false);;
-//		bubbleChart.setLegendSide(Side.LEFT);
 		bubbleChart.setMinSize(1200, 650);
-//		bubbleChart.setPrefSize(1000, 700);
 		bubble.getChildren().add(bubbleChart);
-//		return bubbleChart;
 		return bubble;
 	}
 }

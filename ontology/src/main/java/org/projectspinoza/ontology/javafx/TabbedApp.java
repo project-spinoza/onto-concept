@@ -29,30 +29,29 @@ public class TabbedApp extends Application {
 	public void init() throws Exception {
         // Prepare tab pane with set of tabs
         BorderPane borderPane = new BorderPane();
-        //tabPane.setPrefSize(1000,650);
         tabPane.setSide(Side.TOP);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        Group bubbles = new BubbleGraph().start();
+        Group frequencyGraph = new BubbleGraph().start();
         /**	for labels inside bubbles in bubble chart**/
-        bubbleChart = (BubbleChart<Number, Number>) bubbles.getChildren().get(0);
+        bubbleChart = (BubbleChart<Number, Number>) frequencyGraph.getChildren().get(0);
         
         Group pieChart = new PieGraph().start();
         SwingNode treeGraph = new TreeGraph().start();
         
         /** tab for pie graph **/
-        final Tab pie = new Tab("Pie Chart");
+        final Tab pie = new Tab("Matched Tags");
         pie.setId("1");
         pie.setContent(pieChart);
         /** ends here  **/
         
         /** tab for bubble graph **/
-        final Tab bubble = new Tab("Bubble Chart");
+        final Tab bubble = new Tab("Tags Frequency");
         bubble.setId("2");
-        bubble.setContent(bubbles);
+        bubble.setContent(frequencyGraph);
         /** ends here  **/
         
         /**	tab for tree graph **/
-        final Tab tree = new Tab("Tree Graph");
+        final Tab tree = new Tab("Hierarchical Result");
         tree.setId("3");
         tree.setContent(treeGraph);
         /** ends here**/
@@ -60,16 +59,18 @@ public class TabbedApp extends Application {
         tabPane.getTabs().addAll( pie,bubble, tree);
         borderPane.setCenter(tabPane);
         root.getChildren().addAll(borderPane);
-        
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(root);
+        
         //scene.getStylesheets().add(TabbedApp.class.getResource("stylesheet/style.css").toExternalForm());
         //System.out.println(getClass().getResource("stylesheet/style.css").toString());
+        primaryStage.setTitle("Ontology Visualization");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
         /* For Bubble Chart, to show label inside bubble*/
 		for (XYChart.Series<Number, Number> series : bubbleChart.getData()) {
 	        for (XYChart.Data<Number, Number> data : series.getData()) {
@@ -79,13 +80,11 @@ public class TabbedApp extends Application {
 	                if (region.getShape() != null && region.getShape() instanceof Ellipse) {
 	                    Ellipse ellipse = (Ellipse) region.getShape();
 	                    DoubleProperty fontSize = new SimpleDoubleProperty(20);
-
 	                    Label label = new Label(series.getName());
 	                    label.setAlignment(Pos.CENTER);
 	                    label.minWidthProperty().bind(ellipse.radiusXProperty());
 	                    fontSize.bind(Bindings.when(ellipse.radiusXProperty().lessThan(40)).then(6).otherwise(10));
 	                    fontSize.bind(Bindings.divide(ellipse.radiusXProperty(), 10));
-	                    //label.styleProperty().bind(Bindings.concat("-fx-font-size:", fontSize.asString(), ";"));
 	                    region.getChildren().add(label);
 	                }
 	            }
