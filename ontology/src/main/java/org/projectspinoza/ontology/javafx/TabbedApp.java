@@ -25,13 +25,17 @@ public class TabbedApp extends Application {
     Group root = new Group();
     TabPane tabPane = new TabPane();
 
-    public void init() throws Exception {
+    @SuppressWarnings("unchecked")
+	public void init() throws Exception {
         // Prepare tab pane with set of tabs
         BorderPane borderPane = new BorderPane();
         //tabPane.setPrefSize(1000,650);
         tabPane.setSide(Side.TOP);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        bubbleChart = new BubbleGraph().start();
+        Group bubbles = new BubbleGraph().start();
+        /**	for labels inside bubbles in bubble chart**/
+        bubbleChart = (BubbleChart<Number, Number>) bubbles.getChildren().get(0);
+        
         Group pieChart = new PieGraph().start();
         SwingNode treeGraph = new TreeGraph().start();
         
@@ -44,7 +48,7 @@ public class TabbedApp extends Application {
         /** tab for bubble graph **/
         final Tab bubble = new Tab("Bubble Chart");
         bubble.setId("2");
-        bubble.setContent(bubbleChart);
+        bubble.setContent(bubbles);
         /** ends here  **/
         
         /**	tab for tree graph **/
@@ -62,8 +66,8 @@ public class TabbedApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(TabbedApp.class.getResource("stylesheet/style.css").toExternalForm());
-
+        //scene.getStylesheets().add(TabbedApp.class.getResource("stylesheet/style.css").toExternalForm());
+        //System.out.println(getClass().getResource("stylesheet/style.css").toString());
         primaryStage.setScene(scene);
         primaryStage.show();
         /* For Bubble Chart, to show label inside bubble*/

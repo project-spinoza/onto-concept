@@ -2,6 +2,7 @@ package org.projectspinoza.ontology.javafx;
 
 import java.util.Map;
 
+import javafx.scene.Group;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -21,8 +22,8 @@ public class BubbleGraph {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public BubbleChart<Number, Number> start() throws Exception {
-		
+	public Group start() throws Exception {
+		Group bubble = new Group();
 		final NumberAxis xAxis = new NumberAxis(0, 50, 2);
 		final NumberAxis yAxis = new NumberAxis(0, 50, 2);
 		final BubbleChart<Number, Number> bubbleChart = new BubbleChart<Number, Number>(xAxis, yAxis);
@@ -41,7 +42,9 @@ public class BubbleGraph {
 		bubbleChart.legendVisibleProperty().set(false);;
 //		bubbleChart.setLegendSide(Side.LEFT);
 		bubbleChart.setMinSize(800, 550);
-		bubbleChart.setPrefSize(800, 500);
-		return bubbleChart;
+//		bubbleChart.setPrefSize(1000, 700);
+		bubble.getChildren().add(bubbleChart);
+//		return bubbleChart;
+		return bubble;
 	}
 }
