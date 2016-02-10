@@ -71,7 +71,7 @@ public class TreeGraph {
 
 		layout = new TreeLayout<JNode, JEdge>(graph);
 	    
-		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(1000, 650));
+		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(1500, 700));
 		vv.setBackground(Color.white);
 		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
