@@ -37,7 +37,8 @@ public class BubbleGraph {
 		}
 		bubbleChart.legendVisibleProperty().set(false);;
 		bubbleChart.setMinSize(1200, 650);
-		bubble.getChildren().add(bubbleChart);
+		bubble.getChildren().addAll(bubbleChart);
+	    
 		return bubble;
 	}
 }
