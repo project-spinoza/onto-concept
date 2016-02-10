@@ -2,7 +2,6 @@ package org.projectspinoza.ontology.javafx;
 
 import java.util.Map;
 
-import javafx.geometry.Side;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
