@@ -43,8 +43,9 @@ public class PieGraph {
 		final PieChart chart = new PieChart(pieChartData);
 		chart.setTitle("Tweet tags");
 		chart.setLegendSide(Side.LEFT);
-		chart.setMinWidth(1200);
-		chart.setMinHeight(650);
+//		chart.setMinWidth(1200);
+//		chart.setMinHeight(650);
+		chart.setMinSize(1200, 650);
 
 		// . adding mouse Event
 		final Label caption = new Label("");

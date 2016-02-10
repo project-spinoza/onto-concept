@@ -41,7 +41,7 @@ public class BubbleGraph {
 		}
 		bubbleChart.legendVisibleProperty().set(false);;
 //		bubbleChart.setLegendSide(Side.LEFT);
-		bubbleChart.setMinSize(800, 550);
+		bubbleChart.setMinSize(1200, 650);
 //		bubbleChart.setPrefSize(1000, 700);
 		bubble.getChildren().add(bubbleChart);
 //		return bubbleChart;
