@@ -5,15 +5,15 @@ extended version of ontology
 # onto-graph
 onotlogy visualization
 <br>
-![Pie screenshot](images/pie.JPG)
+![Pie screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/pie.JPG)
 <br>
 <hr>
 <br>
-![Bubble screenshot](images/bubble.JPG)
+![Bubble screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/bubble.JPG)
 <br>
 <hr>
 <br>
-![Tree screenshot](images/tree.JPG)
+![Tree screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/tree.JPG)
 
 
 ## Usage
