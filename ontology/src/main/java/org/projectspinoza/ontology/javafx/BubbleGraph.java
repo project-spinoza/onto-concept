@@ -20,25 +20,25 @@ public class BubbleGraph {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Group start() throws Exception {
-		Group bubble = new Group();
+		Group graph = new Group();
 		final NumberAxis xAxis = new NumberAxis(0, 50, 2);
 		final NumberAxis yAxis = new NumberAxis(0, 50, 2);
 		final BubbleChart<Number, Number> bubbleChart = new BubbleChart<Number, Number>(xAxis, yAxis);
 		yAxis.setLabel("Indivisual Frequency");
 		xAxis.setLabel("Overall Frequency ");
-		bubbleChart.setTitle("Onto-concept");
+		bubbleChart.setTitle("Tags Frequency");
 		
 		for (String key : data_map.keySet()) {
-			XYChart.Series tag = new XYChart.Series();
-			tag.setName(key);
+			XYChart.Series bubble = new XYChart.Series();
+			bubble.setName(key);
 			int[] frequences = (int[]) data_map.get(key);
-			tag.getData().add(new XYChart.Data(frequences[0], frequences[1]));
-			bubbleChart.getData().add(tag);
+			bubble.getData().add(new XYChart.Data(frequences[0], frequences[1]));
+			bubbleChart.getData().add(bubble);
 		}
-		bubbleChart.legendVisibleProperty().set(false);;
+		
 		bubbleChart.setMinSize(1200, 650);
-		bubble.getChildren().addAll(bubbleChart);
+		graph.getChildren().addAll(bubbleChart);
 	    
-		return bubble;
+		return graph;
 	}
 }

@@ -142,6 +142,22 @@ public class TermOntologyMatcher {
     }
 
     public List<Term> finalHierarchy(List<Term> matchedTerms) {
+    	for (int i = 0; i < matchedTerms.size(); i++) {
+            Term relation = matchedTerms.get(i);
+            String parent = relation.getTerm().toLowerCase();
+            for (int k = 0; k < matchedTerms.size(); k++) {
+                if (k != i) {
+                    Term nextRelation = matchedTerms.get(k);
+                    for (int j = 0; j < nextRelation.getChilds().size(); j++) {
+                        if (parent.equals(nextRelation.getChilds().get(j).getTerm().toLowerCase())) {
+                            nextRelation.getChilds().get(j).setChilds(relation.getChilds());
+                            matchedTerms.remove(relation);
+                        }
+                    }
+                }
+            }
+        }
+ /*
 
         for (int i = 0; i < matchedTerms.size(); i++) {
             Term relation = matchedTerms.get(i);
@@ -167,6 +183,7 @@ public class TermOntologyMatcher {
                 }
             }
         }
+ */
         return matchedTerms;
     }
 

@@ -1,6 +1,7 @@
 package org.projectspinoza.ontology.javafx;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.embed.swing.SwingNode;
@@ -77,16 +78,15 @@ public class TabbedApp extends Application {
 	            if (bubble != null && bubble instanceof StackPane) {
 	                StackPane region = (StackPane) bubble;
 	                if (region.getShape() != null && region.getShape() instanceof Ellipse) {
-	                    Ellipse ellipse = (Ellipse) region.getShape();
-	                    
+	                    Ellipse ellipse = (Ellipse) region.getShape(); 
 	                    DoubleProperty fontSize = new SimpleDoubleProperty(20);
 	                    Label label = new Label(series.getName());
 	                    label.setAlignment(Pos.CENTER);
-	                    ellipse.setRadiusX(label.getText().length()+10);
+	                    ellipse.setRadiusX(series.getName().length()+30);
 	                    ellipse.setRadiusY(label.getHeight()+10);
 	                    label.minWidthProperty().bind(ellipse.radiusXProperty());
-//	                    fontSize.bind(Bindings.when(ellipse.radiusXProperty().lessThan(40)).then(10).otherwise(14));
-//	                    fontSize.bind(Bindings.divide(ellipse.radiusXProperty(), 10));
+//	                    fontSize.bind(Bindings.when(ellipse.radiusXProperty().lessThan(40)).then(6).otherwise(10));
+	                    fontSize.bind(Bindings.divide(ellipse.radiusXProperty(), 10));
 	                    fontSize.bind(ellipse.radiusXProperty());
 	                    region.getChildren().add(label);
 	                }

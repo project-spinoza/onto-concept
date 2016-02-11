@@ -41,7 +41,7 @@ public class PieGraph {
 		pieChartData = FXCollections.observableArrayList(pieDatalist);
 
 		final PieChart chart = new PieChart(pieChartData);
-		chart.setTitle("Tweet tags");
+		chart.setTitle("Matched Tags");
 		chart.setLegendSide(Side.LEFT);
 		chart.setMinSize(1200, 650);
 

@@ -3,6 +3,8 @@ package org.projectspinoza.ontology.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 public class Term {
 
     private String title;
@@ -11,6 +13,7 @@ public class Term {
     private String description = null;
     private int frequency = 1;
     private int overAllFrequency = 1;
+    @JsonIgnore
     private List<Term> childs;
 
     public Term() {
