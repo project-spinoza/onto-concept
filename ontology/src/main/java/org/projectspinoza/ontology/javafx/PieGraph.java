@@ -17,14 +17,14 @@ import javafx.scene.input.MouseEvent;
 public class PieGraph {
 
 	List<PieChart.Data> pieDatalist = new ArrayList<PieChart.Data>();
-	private static Map<String, Object> pieData;
+	private static Map<String, int[]> pieData;
 	public int total_freqs = 0;
 
-	public Map<String, Object> getPieData() {
+	public Map<String, int[]> getPieData() {
 		return pieData;
 	}
 
-	public static void setMap(Map<String, Object> map) {
+	public static void setMap(Map<String, int[]> map) {
 		pieData = map;
 	}
 
@@ -32,8 +32,8 @@ public class PieGraph {
 		Group pie = new Group();
 		ObservableList<PieChart.Data> pieChartData = null;
 
-		for (Entry<String, Object> entry : pieData.entrySet()) {
-			int freq = ((int[]) entry.getValue())[0];
+		for (Entry<String, int[]> entry : pieData.entrySet()) {
+			int freq = entry.getValue()[0];
 			total_freqs += freq;
 			pieDatalist.add(new PieChart.Data(entry.getKey(), freq));
 		}

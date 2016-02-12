@@ -9,12 +9,12 @@ import javafx.scene.chart.XYChart;
 
 public class BubbleGraph {
 
-	private static Map<String, Object> data_map;
+	private static Map<String, int[]> data_map;
 	
 	public BubbleGraph() {
 	}
 
-	public static void setMap(Map<String, Object> map) {
+	public static void setMap(Map<String, int[]> map) {
 		data_map = map;
 	}
 
@@ -31,7 +31,7 @@ public class BubbleGraph {
 		for (String key : data_map.keySet()) {
 			XYChart.Series bubble = new XYChart.Series();
 			bubble.setName(key);
-			int[] frequences = (int[]) data_map.get(key);
+			int[] frequences = data_map.get(key);
 			bubble.getData().add(new XYChart.Data(frequences[0], frequences[1]));
 			bubbleChart.getData().add(bubble);
 		}

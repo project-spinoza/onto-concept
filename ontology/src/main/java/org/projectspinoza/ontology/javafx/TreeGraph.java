@@ -14,7 +14,6 @@ import org.projectspinoza.ontology.util.Term;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.Forest;
-import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
@@ -51,21 +50,54 @@ public class TreeGraph {
 		graph = new DelegateForest<JNode, JEdge>();
 		this.addData();
 		layout = new TreeLayout<JNode, JEdge>(graph);
-	    
+		
 		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(1500, 700));
-		vv.setBackground(Color.LIGHT_GRAY);
+		vv.setBackground(Color.WHITE);
+		vv.setToolTipText("<html><center>Hierarchical Ontology</center></html>");
+		
 		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.QuadCurve<JNode, JEdge>());
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-		vv.getRenderContext().setEdgeDrawPaintTransformer(new ConstantTransformer(Color.BLACK));
-		vv.getRenderContext().setVertexFillPaintTransformer(new ConstantTransformer(Color.DARK_GRAY));
-		
+		vv.getRenderContext().setEdgeDrawPaintTransformer(new ConstantTransformer(Color.DARK_GRAY));
+		vv.getRenderContext().setVertexFillPaintTransformer(new ConstantTransformer(Color.DARK_GRAY));	
+/*
+		// Custom Visualisation...
+		vv.getRenderContext().setVertexFillPaintTransformer(new VertexPaintTransformer());
+		vv.getRenderContext().setVertexShapeTransformer(new VertexShapTransformer());
+		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
+*/			
 		panel = new GraphZoomScrollPane(vv);
-
 		final DefaultModalGraphMouse<?, ?> graphMouse = new DefaultModalGraphMouse();
 		vv.setGraphMouse(graphMouse);
 		graphMouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
 	}
+/*
+ //Static class of random colours for JNode..
+     private static class VertexPaintTransformer implements Transformer<JNode,Paint> {
+    	 
+        @Override
+        public Paint transform(JNode jNode) {
+            Color color = null;
+            Random random = new Random();
+            int r = random.nextInt(256);  
+            int g = random.nextInt(200);
+            int b = random.nextInt(250);
+            color = new Color(r, g, b);
+            return color;
+        }
+    }
+    
+ // Static class for random Shape Transformer according to JNode label..
+     private static class VertexShapTransformer implements Transformer<JNode, Shape> {
 
+		@Override
+		public Shape transform(JNode jNode) {
+			Shape shape = null;
+			float width = jNode.toString().length()*10;
+	        shape = new Ellipse2D.Double(-(width/2), -12.5, width, 25);
+	        return shape;
+		} 
+     }
+*/
 	/**
 	 * Adding data to graph
 	 * 
@@ -81,10 +113,10 @@ public class TreeGraph {
 			if (term.getChilds() != null) {
 				for (Term child : term.getChilds()) {
 					JNode jsubchild = new JNode(child.getTerm());
-					graph.addEdge(new JEdge(), jchild, jsubchild, EdgeType.DIRECTED);
+					graph.addEdge(new JEdge(), jchild, jsubchild);
 					if (child.getChilds() != null) {
 						for (Term subchild : child.getChilds()) {
-							graph.addEdge(new JEdge(), jsubchild, new JNode(subchild.getTerm()), EdgeType.DIRECTED);
+							graph.addEdge(new JEdge(), jsubchild, new JNode(subchild.getTerm()));
 						}
 					}
 				}
