@@ -8,12 +8,12 @@ onotlogy visualization
 ![Pie screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/pie.jpg)
 <br>
 <hr>
-<br>
-![Bubble screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/bubble.JPG)
+![Tree screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/tree.jpg)
 <br>
 <hr>
 <br>
-![Tree screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/tree.jpg)
+![Bubble screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/bubble.JPG)
+<br>
 
 
 ## Usage
