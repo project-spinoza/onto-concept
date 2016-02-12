@@ -40,3 +40,11 @@ Run `run.bat` for windows <br><br>
 
 #### Result
 The final result will be stored in two files. `ontology_result.txt` and `concept_result.txt` files, at root directory of project.
+
+## License
+The code is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+<br>
+## Questions or Suggestions
+**Email** `project.spinoza@gmail.com`<br>
+**Issues** https://github.com/project-spinoza/onto-concept/issues
