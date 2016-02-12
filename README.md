@@ -13,7 +13,7 @@ onotlogy visualization
 <br>
 <hr>
 <br>
-![Tree screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/tree.JPG)
+![Tree screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/tree.jpg)
 
 
 ## Usage
