@@ -18,7 +18,7 @@ public class TermOntologyMatcher {
     private String tweetsPath;
     private String ontologiesPath;
     private Set<String> conceptTweetTags = new HashSet<String>();
-    private Map<String, Object> tags = new HashMap<String, Object>();
+    private Map<String, int[]> tags = new HashMap<String, int[]>();
 
     public String getTweetsPath() {
         return tweetsPath;
@@ -44,11 +44,11 @@ public class TermOntologyMatcher {
         this.ontologiesPath = ontologiesPath;
     }
 
-    public Map<String, Object> getTags() {
+    public Map<String, int[]> getTags() {
         return tags;
     }
 
-    public void setTags(Map<String, Object> tags) {
+    public void setTags(Map<String, int[]> tags) {
         this.tags = tags;
     }
 
@@ -63,25 +63,21 @@ public class TermOntologyMatcher {
     @SuppressWarnings("unchecked")
     public Map<String,Object> getOntology() {
         Map<String, Object> resultTerms = matchTerms(tweetsPath, ontologiesPath);
-        List<Term> earlyMatchedTerms = (List<Term>) resultTerms.get("matched");
+        List<Term> matchedTerms = (List<Term>) resultTerms.get("matched");
         List<String> unMatchedTerms = (List<String>) resultTerms.get("unMatched");
-        List<Term> hierarical = finalHierarchy(earlyMatchedTerms);
- //       List<Term> hieraricalTerms = finalHierarchy(hierarical);
-        
         /***
-         * Preparing Map<String,Object> from List<Term> to be visualize.
+         * Preparing Map<String, int[]> from List<Term> to be visualize.
          * **/
-       this.setTags(visualizeMap(hierarical));
-        /** End **/
-        return printMatchedTerms(hierarical, unMatchedTerms);
+       this.setTags(visualizeMap(matchedTerms));
+
+        return printMatchedTerms(matchedTerms, unMatchedTerms);
     }
 
-    public Map<String, Object> matchTerms(String tweeetsfile,String ontologiesfile) {
+    public Map<String, Object> matchTerms(String tweeetsfile, String ontologiesfile) {
 
         List<Term> matched = new ArrayList<Term>();
         List<String> unMatched = new ArrayList<String>();
-        Map<String, Object> matchTermResult = new HashMap<String, Object>();
-        
+        Map<String, Object> matchTermResult = new HashMap<String, Object>(); 
         List<String> tweetTags = DataLoader.fetchTags(tweeetsfile);
         List<Map<String, String>> ontologies = DataLoader.fetchOntologies(ontologiesfile);
 
@@ -109,7 +105,7 @@ public class TermOntologyMatcher {
                 unMatched.add(tag);
             }
         }
-        matchTermResult.put("matched", matched);
+        matchTermResult.put("matched", finalHierarchy(matched));
         matchTermResult.put("unMatched", unMatched);
 
         return matchTermResult;
@@ -124,44 +120,33 @@ public class TermOntologyMatcher {
         return -1;
     }
 
-    public List<Term> addToRelation(String term, Map<String, String> ontology,
-            List<Term> matchedTerms) {
+    public List<Term> addToRelation(String term, Map<String, String> ontology, List<Term> matchedTerms) {
         for (int i = 0; i < matchedTerms.size(); i++) {
             if (matchedTerms.get(i).getTerm().equals(ontology.get("Parent").trim())) {
-                matchedTerms.get(i).addChild(new Term(term, ontology.get("Title"), ontology.get(
-                                "Body").replaceAll("[\r\n]+", ""), ontology.get("Tag")));
+                matchedTerms.get(i).addChild(new Term(term, ontology.get("Title"), ontology.get("Body")
+                				   .replaceAll("[\r\n]+", ""), ontology.get("Tag")));
                 return matchedTerms;
             }
         }
         Term relation = new Term(ontology.get("Parent").trim());
-        relation.addChild(new Term(term, ontology.get("Title"), ontology.get(
-                "Body").replaceAll("[\r\n]+", ""), ontology.get("Tag")));
+        relation.addChild(new Term(term, ontology.get("Title"), ontology.get("Body")
+        		.replaceAll("[\r\n]+", ""), ontology.get("Tag")));
         matchedTerms.add(relation);
 
         return matchedTerms;
     }
 
     public List<Term> finalHierarchy(List<Term> matchedTerms) {
-
-        for (int i = 0; i < matchedTerms.size(); i++) {
+    	for (int i = 0; i < matchedTerms.size(); i++) {
             Term relation = matchedTerms.get(i);
             String parent = relation.getTerm().toLowerCase();
             for (int k = 0; k < matchedTerms.size(); k++) {
                 if (k != i) {
                     Term nextRelation = matchedTerms.get(k);
                     for (int j = 0; j < nextRelation.getChilds().size(); j++) {
-                    	Term subChild =  nextRelation.getChilds().get(j);
                         if (parent.equals(nextRelation.getChilds().get(j).getTerm().toLowerCase())) {
-//                            nextRelation.getChilds().get(j).setChilds(relation.getChilds());
                             nextRelation.getChilds().get(j).addChilds(relation.getChilds());
                             matchedTerms.remove(relation);
-                        }else if(subChild.getChilds() != null){
-                        	for(int l = 0; l < subChild.getChilds().size(); l++)
-                        	 if(parent.equals(subChild.getChilds().get(l).getTerm().toLowerCase())){
-//                        		 subChild.getChilds().get(l).setChilds(relation.getChilds());
-                        		 subChild.getChilds().get(l).addChilds(relation.getChilds());
-                        		 matchedTerms.remove(relation);
-                        	 }
                         }
                     }
                 }
@@ -170,9 +155,7 @@ public class TermOntologyMatcher {
         return matchedTerms;
     }
 
-    public Map<String,Object> printMatchedTerms(List<Term> matchTerms,
-            List<String> unMatchTerms) {
-
+    public Map<String,Object> printMatchedTerms(List<Term> matchTerms, List<String> unMatchTerms) {
         int matchedCount = matchTerms.size();
         int unMatchedCount = unMatchTerms.size();
         log.info("matched [" + matchedCount + "]");
@@ -192,10 +175,9 @@ public class TermOntologyMatcher {
          return String.format("%.2f",percentage);
     }
     
-    /// Extra Fuction for creating map to be visualize
-    
-	public Map<String, Object> visualizeMap(List<Term> terms) {
-		Map<String, Object> tags = new HashMap<String, Object>();
+    // for creating map to be visualise
+	public Map<String, int[]> visualizeMap(List<Term> terms) {
+		Map<String, int[]> tags = new HashMap<String, int[]>();
 		for (Term term : terms) {
 			for (Term child : term.getChilds()) {
 				int[] freqs = new int[2];

@@ -12,7 +12,7 @@ public abstract class JavaFX extends Application {
     public static void main(String[] args) {
     }
     
-    public static void setData( Map<String, Object> data, List<Term> hierarchicalData){
+    public static void setData( Map<String, int[]> data, List<Term> hierarchicalData){
     	BubbleGraph.setMap(data);
     	PieGraph.setMap(data);
     	TreeGraph.setOntoData(hierarchicalData);

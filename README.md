@@ -5,15 +5,15 @@ extended version of ontology
 # onto-graph
 onotlogy visualization
 <br>
-![Bubble screenshot](images/bubble.JPG)
+![Pie screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/pie.jpg)
+<br>
+<hr>
+![Tree screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/tree.jpg)
 <br>
 <hr>
 <br>
-![Pie screenshot](images/pie.JPG)
+![Bubble screenshot](https://github.com/project-spinoza/onto-concept/blob/gh-pages/images/bubble.JPG)
 <br>
-<hr>
-<br>
-![Tree screenshot](images/tree.JPG)
 
 
 ## Usage
@@ -40,3 +40,10 @@ Run `run.bat` for windows <br><br>
 
 #### Result
 The final result will be stored in two files. `ontology_result.txt` and `concept_result.txt` files, at root directory of project.
+
+## License
+The code is licensed under the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+## Questions or Suggestions
+**Email** `project.spinoza@gmail.com`<br>
+**Issues** https://github.com/project-spinoza/onto-concept/issues

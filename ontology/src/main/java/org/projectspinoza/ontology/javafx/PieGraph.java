@@ -1,5 +1,7 @@
 package org.projectspinoza.ontology.javafx;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,56 +13,53 @@ import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 public class PieGraph {
 
-	private static Map<String, Object> pieData;
+	List<PieChart.Data> pieDatalist = new ArrayList<PieChart.Data>();
+	private static Map<String, int[]> pieData;
+	public int total_freqs = 0;
 
-	public Map<String, Object> getPieData() {
+	public Map<String, int[]> getPieData() {
 		return pieData;
 	}
 
-	public static void setMap(Map<String, Object> map) {
+	public static void setMap(Map<String, int[]> map) {
 		pieData = map;
 	}
 
 	public Group start() {
 		Group pie = new Group();
 		ObservableList<PieChart.Data> pieChartData = null;
-		ObservableWrap wraper = new ObservableWrap();
 
-		for (Entry<String, Object> entry : pieData.entrySet()) {
-			int val = ((int[]) entry.getValue())[0];
-			wraper.addPieData(new PieChart.Data(entry.getKey(), val));
+		for (Entry<String, int[]> entry : pieData.entrySet()) {
+			int freq = entry.getValue()[0];
+			total_freqs += freq;
+			pieDatalist.add(new PieChart.Data(entry.getKey(), freq));
 		}
 
-		pieChartData = FXCollections.observableArrayList(wraper.getalldata());
+		pieChartData = FXCollections.observableArrayList(pieDatalist);
 
 		final PieChart chart = new PieChart(pieChartData);
-		chart.setTitle("Tweet tags");
+		chart.setTitle("Matched Tags");
 		chart.setLegendSide(Side.LEFT);
-		chart.setMinWidth(800);
-		chart.setMinHeight(800);
+		chart.setMinSize(1200, 650);
 
 		// . adding mouse Event
 		final Label caption = new Label("");
-        caption.setTextFill(Color.BLACK);
         caption.setStyle("-fx-font: 24 arial;");
-
         for (final PieChart.Data data : chart.getData()) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
                         caption.setTranslateX(e.getSceneX());
                         caption.setTranslateY(e.getSceneY());
-                        double percent = (data.getPieValue()/chart.getData().size())*100;
-                        caption.setText(String.valueOf(percent) + "%");
+                        double percent = (data.getPieValue()/total_freqs)*100F;
+                        caption.setText(String.format("%.2f",percent)+ "%");
                      }
                 });
         }
         pie.getChildren().addAll(chart,caption);
- //       pie.getChildren().addAll(chart);
 		return pie;
 	}
 }

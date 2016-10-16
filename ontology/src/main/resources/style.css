@@ -4,7 +4,7 @@
 
 .tab-pane
 {
-    -fx-tab-min-width:90px;
+    -fx-tab-min-width:70px;
 }
 
 .tab{
@@ -13,7 +13,6 @@
 .tab-pane .tab
 {
     -fx-background-color: #e6e6e6;
-
 }
 
 .tab-pane .tab:selected
@@ -34,6 +33,7 @@
 }
 .tab-pane:top *.tab-header-area {
     -fx-background-insets: 0, 0 0 1 0;
- /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
-    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overriden as 5 2 0 0 */
+}
+.chart-legend {
+    -fx-background-color: #e6e6e6;
 }

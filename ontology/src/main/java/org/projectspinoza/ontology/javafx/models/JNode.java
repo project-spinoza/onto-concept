@@ -1,9 +1,12 @@
 package org.projectspinoza.ontology.javafx.models;
 
+import javafx.scene.paint.Color;
+
 public class JNode {
 	 int id;
      String label;
      static int nodeCount = 0;
+     Color color;
      /**
       * Creates node with unique id, and label
       * @param id
@@ -15,5 +18,5 @@ public class JNode {
      }
      public String toString() {
          return label;
-     }        
+     }
 }

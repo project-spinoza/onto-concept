@@ -1,22 +1,11 @@
 package org.projectspinoza.ontology.javafx;
 
-/*
- * Copyright (c) 2003, the JUNG Project and the Regents of the University of
- * California All rights reserved.
- * 
- * This software is open-source under the BSD license; see either "license.txt"
- * or http://jung.sourceforge.net/license.txt for a description.
- * 
- */
-
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Shape;
 import java.util.List;
 
 import javafx.embed.swing.SwingNode;
 
-import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 import org.projectspinoza.ontology.javafx.models.JEdge;
 import org.projectspinoza.ontology.javafx.models.JNode;
@@ -25,21 +14,16 @@ import org.projectspinoza.ontology.util.Term;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.Forest;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
-import edu.uci.ics.jung.visualization.VisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
-import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 public class TreeGraph {
 
 	private static List<Term> ontoData;
-	
 	public static List<Term> getOntoData() {
 		return ontoData;
 	}
@@ -50,92 +34,70 @@ public class TreeGraph {
 	/**
 	 * the graph
 	 */
-	final GraphZoomScrollPane panel;
+	GraphZoomScrollPane panel;
 	Forest<JNode, JEdge> graph;
 	
 	/**
 	 * the visual component and renderer for the graph
 	 */
 	VisualizationViewer<JNode, JEdge> vv;
-	VisualizationServer.Paintable rings;
 	TreeLayout<JNode, JEdge> layout;
-//	TreeCollapser collapser;
-//	RadialTreeLayout<JNode, JEdge> radialLayout;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public TreeGraph() {
 
 		// create a simple graph for ontology data
 		graph = new DelegateForest<JNode, JEdge>();
-		addData();
-
+		this.addData();
 		layout = new TreeLayout<JNode, JEdge>(graph);
-	    
-		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(1000, 650));
-		vv.setBackground(Color.white);
-		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
-		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-		vv.getRenderContext().setVertexShapeTransformer(new ClusterVertexShapeFunction());
-		vv.setVertexToolTipTransformer(new ToStringLabeller());
-		vv.getRenderContext().setArrowFillPaintTransformer(new ConstantTransformer(Color.lightGray));	
 		
+		vv = new VisualizationViewer<JNode, JEdge>(layout, new Dimension(1500, 700));
+		vv.setBackground(Color.WHITE);
+		vv.setToolTipText("<html><center>Hierarchical Ontology</center></html>");
+		
+		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.QuadCurve<JNode, JEdge>());
+		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+		vv.getRenderContext().setEdgeDrawPaintTransformer(new ConstantTransformer(Color.DARK_GRAY));
+		vv.getRenderContext().setVertexFillPaintTransformer(new ConstantTransformer(Color.DARK_GRAY));	
+/*
+		// Custom Visualisation...
+		vv.getRenderContext().setVertexFillPaintTransformer(new VertexPaintTransformer());
+		vv.getRenderContext().setVertexShapeTransformer(new VertexShapTransformer());
+		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
+*/			
 		panel = new GraphZoomScrollPane(vv);
-
 		final DefaultModalGraphMouse<?, ?> graphMouse = new DefaultModalGraphMouse();
 		vv.setGraphMouse(graphMouse);
 		graphMouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
 	}
-
-	/**
-	 * class that will create a vertex shape that is either a polygon or
-	 * star. The number of sides corresponds to the number of vertices that were
-	 * collapsed into the vertex represented by this shape.
-	 * @param <V>
-	 */
-	class ClusterVertexShapeFunction<V> extends
-			EllipseVertexShapeTransformer<V> {
-
-		ClusterVertexShapeFunction() {
-			setSizeTransformer(new ClusterVertexSizeFunction<V>(20));
-		}
+/*
+ //Static class of random colours for JNode..
+     private static class VertexPaintTransformer implements Transformer<JNode,Paint> {
+    	 
+        @Override
+        public Paint transform(JNode jNode) {
+            Color color = null;
+            Random random = new Random();
+            int r = random.nextInt(256);  
+            int g = random.nextInt(200);
+            int b = random.nextInt(250);
+            color = new Color(r, g, b);
+            return color;
+        }
+    }
+    
+ // Static class for random Shape Transformer according to JNode label..
+     private static class VertexShapTransformer implements Transformer<JNode, Shape> {
 
 		@Override
-		public Shape transform(V v) {
-			if (v instanceof Graph) {
-				int size = ((Graph<?, ?>) v).getVertexCount();
-				if (size < 8) {
-					int sides = Math.max(size, 4);
-					return factory.getRegularPolygon(v, sides);
-				} else {
-					return factory.getRegularStar(v, size);
-				//	return factory.getRoundRectangle(v);
-				}
-			}
-			return super.transform(v);
-		}
-	}
-
-	/**
-	 * A class that will make vertices larger if they represent a collapsed
-	 * collection of original vertices
-	 *
-	 * @param <V>
-	 */
-	class ClusterVertexSizeFunction<V> implements Transformer<V, Integer> {
-		int size;
-
-		public ClusterVertexSizeFunction(Integer size) {
-			this.size = size;
-		}
-
-		public Integer transform(V v) {
-			if (v instanceof Graph) {
-				return 50;
-			}
-			return size;
-		}
-	}
-
+		public Shape transform(JNode jNode) {
+			Shape shape = null;
+			float width = jNode.toString().length()*10;
+	        shape = new Ellipse2D.Double(-(width/2), -12.5, width, 25);
+	        return shape;
+		} 
+     }
+*/
 	/**
 	 * Adding data to graph
 	 * 
@@ -151,10 +113,10 @@ public class TreeGraph {
 			if (term.getChilds() != null) {
 				for (Term child : term.getChilds()) {
 					JNode jsubchild = new JNode(child.getTerm());
-					graph.addEdge(new JEdge(), jchild, jsubchild, EdgeType.DIRECTED);
+					graph.addEdge(new JEdge(), jchild, jsubchild);
 					if (child.getChilds() != null) {
 						for (Term subchild : child.getChilds()) {
-							graph.addEdge(new JEdge(), jsubchild, new JNode(subchild.getTerm()), EdgeType.DIRECTED);
+							graph.addEdge(new JEdge(), jsubchild, new JNode(subchild.getTerm()));
 						}
 					}
 				}

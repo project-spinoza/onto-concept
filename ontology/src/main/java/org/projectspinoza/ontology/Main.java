@@ -1,9 +1,7 @@
 package org.projectspinoza.ontology;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +11,7 @@ import org.projectspinoza.ontology.util.Term;
 
 public class Main {
     private static Logger log = LogManager.getRootLogger();
-    public static Set<String> tweetTags = new HashSet<String>();
+//  public static Set<String> tweetTags;
     static TermOntologyMatcher termOntologyMatcher;
     
     @SuppressWarnings("unchecked")
@@ -27,7 +25,6 @@ public class Main {
         termOntologyMatcher = new TermOntologyMatcher(args[0], args[1]);
         Map<String,Object> onotolgy = termOntologyMatcher.getOntology();
         OntoConceptResultGenerator.generatFile("ontology_result", onotolgy);
-        tweetTags = termOntologyMatcher.getConceptTweetTags();
         log.info("Done with Ontology!");
         
         // set data for visualisation...
@@ -35,9 +32,12 @@ public class Main {
         TabbedApp.launch(TabbedApp.class); 
         
         // starting Concept processing...
-//        log.info("Initialising conceptNet...");
-//        List<TagConceptNet> concepts = new TagConceptMatcher().getConcepts(tweetTags,null);
-//        OntoConceptResultGenerator.generatFile("conceptNet_result", concepts);
-//        log.info("Done with conceptNet!");   
+        /*
+        log.info("Initialising conceptNet...");
+        tweetTags = termOntologyMatcher.getConceptTweetTags();
+        List<TagConceptNet> concepts = new TagConceptMatcher().getConcepts(tweetTags,null);
+        OntoConceptResultGenerator.generatFile("conceptNet_result", concepts);
+        log.info("Done with conceptNet!");   
+        */
     }
 }
